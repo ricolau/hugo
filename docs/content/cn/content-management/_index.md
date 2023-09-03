@@ -1,7 +1,7 @@
 ---
-title: Content management
-linkTitle: Overview
-description: Hugo makes managing large static sites easy with support for archetypes, content types, menus, cross references, summaries, and more.
+title: 内容管理
+linkTitle: 内容管理概览
+description: Hugo支持原型、内容类型、菜单、交叉引用、摘要等，使管理大型静态网站变得简单。
 menu:
   docs:
     identifier: content-management-overview
@@ -13,4 +13,4 @@ weight: 10
 aliases: [/content/,/content/organization]
 ---
 
-A static site generator needs to extend beyond front matter and a couple of templates to be both scalable and *manageable*. Hugo was designed with not only developers in mind, but also content managers and authors.
+静态站点生成器需要扩展到前台和几个模板之外，以便既可扩展又可管理。Hugo的设计不仅考虑到了开发者使用，还考虑到了内容管理者和作者。

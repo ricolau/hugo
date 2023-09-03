@@ -1,8 +1,8 @@
 ---
-title: Front matter
-description: Hugo allows you to add front matter in yaml, toml, or json to your content files.
+title: 头信息
+description: Hugo支持使用yaml、toml、或者json 格式在你的内容文件中添加头信息
 categories: [content management]
-keywords: ["front matter", "yaml", "toml", "json", "metadata", "archetypes"]
+keywords: ["头信息", "yaml", "toml", "json", "元数据", "内容类型"]
 menu:
   docs:
     parent: content-management
@@ -12,22 +12,22 @@ weight: 60
 aliases: [/content/front-matter/]
 ---
 
-**Front matter** allows you to keep metadata attached to an instance of a [content type]---i.e., embedded inside a content file---and is one of the many features that gives Hugo its strength.
+**头信息 Front matter** 支持你在一个特定类型[content type]的内容中添加元数据 ---比如：内嵌在一个内容文件中---这是Hugo众多强大的功能特性中的一个。
 
 {{< youtube Yh2xKRJGff4 >}}
 
-## Front matter formats
+## 头信息格式 Front matter formats
 
-Hugo supports four formats for front matter, each with their own identifying tokens.
+Hugo支持4种格式的头信息，每一种都需要用他们特定的方式来定义：
 
 TOML
-: identified by opening and closing `+++`.
+: 开始和闭合都是用 `+++` 符号。
 
 YAML
-: identified by opening and closing `---`.
+: 开始和闭合都是用  `---` 符号。
 
 JSON
-: a single JSON object surrounded by '`{`' and '`}`', followed by a new line.
+: 一个简单的以  '`{`' 和 '`}`' 包围定义的JSON 对象，放在独立的一行中。
 
 ORG
 : a group of Org mode keywords in the format '`#+KEY: VALUE`'. Any line that does not start with `#+` ends the front matter section.
@@ -47,17 +47,18 @@ categories = [
 slug = "spf13-vim-3-0-release-and-new-website"
 {{< /code-toggle >}}
 
-## Front matter variables
+## 头信息中的变量 Front matter variables
 
-### Predefined
+### 预定义好的变量 Predefined
 
-There are a few predefined variables that Hugo is aware of. See [Page Variables][pagevars] for how to call many of these predefined variables in your templates.
+Hugo可以识别一些预定义的变量。请参阅[页面变量 Page Variables][pagevars]以更多了解如何在模板中调用这些预定义变量。
 
 aliases
-: An array of one or more aliases (e.g., old published paths of renamed content) that will be created in the output directory structure . See [Aliases][aliases] for details.
+: 将在输出目录结构中创建的一个或多个别名（例如，重命名内容的之前使用的旧的发布路径）的数组。有关详细信息请参见[Aliases][alias]。
+
 
 audio
-: An array of paths to audio files related to the page; used by the `opengraph` [internal template](/templates/internal) to populate `og:audio`.
+: 指向与当前页面相关的音频文件的路径数组；由`opengraph`[内部模板internal template](/templates/internal) 用于填充`og:audio`。
 
 cascade
 : A map of front matter keys whose values are passed down to the page's descendants unless overwritten by self or a closer ancestor's cascade. See [Front Matter Cascade](#front-matter-cascade) for details.
@@ -66,13 +67,13 @@ date
 : The datetime assigned to this page. This is usually fetched from the `date` field in front matter, but this behavior is configurable.
 
 description
-: The description for the content.
+: 对当前内容的描述。
 
 draft
-: If `true`, the content will not be rendered unless the `--buildDrafts` flag is passed to the `hugo` command.
+: 如果这个值设置为，则渲染时对应的文章内容不会被渲染，除非在调用 `hugo`命令的时候传递  `--buildDrafts` 参数。
 
 expiryDate
-: The datetime at which the content should no longer be published by Hugo; expired content will not be rendered unless the `--buildExpired` flag is passed to the `hugo` command.
+: 在这个日期后，Hugo不会再渲染对应的内容展示。已过期的内容不会再被渲染，除非在调用 `hugo`命令的时候传递  `--buildExpired` 参数。
 
 headless
 : If `true`, sets a leaf bundle to be [headless][headless-bundle].
@@ -84,25 +85,25 @@ isCJKLanguage
 : If `true`, Hugo will explicitly treat the content as a CJK language; both `.Summary` and `.WordCount` work properly in CJK languages.
 
 keywords
-: The meta keywords for the content.
+: 当前内容的关键词等元数据。
 
 layout
 : The layout Hugo should select from the [lookup order][lookup] when rendering the content. If a `type` is not specified in the front matter, Hugo will look for the layout of the same name in the layout directory that corresponds with a content's section. See [Content Types][content type].
 
 lastmod
-: The datetime at which the content was last modified.
+: 对应的内容最后被修改/更新的时间（时间格式为 datetime）；
 
 linkTitle
-: Used for creating links to content; if set, Hugo defaults to using the `linkTitle` before the `title`. Hugo can also [order lists of content by `linkTitle`][bylinktitle].
+: 用于创建指向内容的链接；如果设置，Hugo默认优先使用 `linkTitle`来创建链接而不是`title`。Hugo还可以[按`linkTitle`][bylinktitle]来排序内容列表。
 
 markup
 : **experimental**; specify `"rst"` for reStructuredText (requires`rst2html`) or `"md"` (default) for Markdown.
 
 outputs
-: Allows you to specify output formats specific to the content. See [output formats][outputs].
+: 允许您指定特定用于当前内容的输出格式，更多可以参考 [输出格式output formats][outputs].
 
 publishDate
-: If in the future, content will not be rendered unless the `--buildFuture` flag is passed to `hugo`.
+: 如果这个值设置的是一个未来的时间，Hugo 在渲染内容网页时不会渲染这个网页，除非在执行`hugo`命令时使用 `--buildFuture`  参数。
 
 resources
 : Used for configuring page bundle resources. See [Page Resources][page-resources].
@@ -117,19 +118,21 @@ summary
 : Text used when providing a summary of the article in the `.Summary` page variable; details available in the [content-summaries](/content-management/summaries/) section.
 
 title
-: The title for the content.
+: 设置当前内容的标题。
 
 type
-: The type of the content; this value will be automatically derived from the directory (i.e., the [section]) if not specified in front matter.
+: 内容的类型；如果没有在头信息中指定，则该值将自动从目录中派生和继承。
 
 url
-: Overrides the entire URL path. Applicable to regular pages and section pages. See [URL Management](/content-management/urls/#url) for details.
+: 覆盖完整的URL 路径， 适用于常规页面和section页面。
+ 见 [URL Management](/content-management/urls/#url) for details.
 
 videos
 : An array of paths to videos related to the page; used by the `opengraph` [internal template](/templates/internal) to populate `og:video`.
 
 weight
-: used for [ordering your content in lists][ordering]. Lower weight gets higher precedence. So content with lower weight will come first. If set, weights should be non-zero, as 0 is interpreted as an *unset* weight.
+: 用来 [给列表中的内容排序][ordering]。低weight 值在排序时更靠前。所以，低weight 的内容将率先列出来或者展示出来。
+如果需要设置weight，它的值不能是0，0 和没有设置的效果是一样的。
 
 \<taxonomies\>
 : Field name of the *plural* form of the index. See `tags` and `categories` in the above front matter examples. *Note that the plural form of user-defined taxonomies cannot be the same as any of the predefined front matter variables.*

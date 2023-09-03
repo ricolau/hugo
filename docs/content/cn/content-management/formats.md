@@ -1,8 +1,8 @@
 ---
-title: Content formats
-description: Both HTML and Markdown are supported content formats.
+title: 支持的内容格式
+description: Hugo支持HTML和 Markdown格式的内容，都可以渲染。
 categories: [content management]
-keywords: [markdown,asciidoc,pandoc,content format]
+keywords: [markdown,asciidoc,pandoc,content format,内容格式]
 menu:
   docs:
     parent: content-management
@@ -12,17 +12,17 @@ weight: 40
 aliases: [/content/markdown-extras/,/content/supported-formats/,/doc/supported-formats/]
 ---
 
-You can put any file type into your `/content` directories, but Hugo uses the `markup` front matter value if set or the file extension (see `Markup identifiers` in the table below) to determine if the markup needs to be processed, e.g.:
+你可以在`/content` 目录下放任意类型格式的文件，Hugo 会使用头信息中设置的  `markup` 的值内容或者文件的扩展名（见如下表格中的`Markup identifiers` ）来决定这个文件是否要被渲染或者处理。
 
-* Markdown converted to HTML
-* [Shortcodes](/content-management/shortcodes/) processed
-* Layout applied
+* Markdown 转换为HTML
+* [短标签支持 Shortcodes](/content-management/shortcodes/) 处理
+* 已经应用了布局（Layout ）
 
-## List of content formats
+## 支持的内容类型 List of content formats
 
-The current list of content formats in Hugo:
+当前Hugo 支持的内容类型：
 
-| Name  | Markup identifiers | Comment |
+| 名称  | 扩展名 | 备注 |
 | ------------- | ------------- |-------------|
 | Goldmark  | md, markdown, goldmark  |Note that you can set the default handler of `md` and `markdown` to something else, see [Configure Markup](/getting-started/configuration-markup/).|
 |Emacs Org-Mode|org|See [go-org](https://github.com/niklasfasching/go-org).|
@@ -31,7 +31,7 @@ The current list of content formats in Hugo:
 |Pandoc|pandoc, pdc|Needs [Pandoc](https://www.pandoc.org/) installed.|
 |HTML|html, htm|To be treated as a content file, with layout, shortcodes etc., it must have front matter. If not, it will be copied as-is.|
 
-The `markup identifier` is fetched from either the `markup` variable in front matter or from the file extension. For markup-related configuration, see [Configure Markup](/getting-started/configuration-markup/).
+`文件类型` 从文件头信息中定义的 `markup` 值获取，或者从文件的扩展名获取。关于文件类型相关配置，可以见[Configure Markup](/getting-started/configuration-markup/).
 
 ## External helpers
 
