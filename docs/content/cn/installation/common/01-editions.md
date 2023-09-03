@@ -1,11 +1,11 @@
-## Editions
+## Hugo 版本 Editions
 
-Hugo is available in two editions: standard and extended. With the extended edition you can:
+Hugo有两个版本：标准版和扩展版。使用扩展版，您可以：
 
-- Encode to the WebP format when [processing images]. You can decode WebP images with either edition.
-- [Transpile Sass to CSS] using the embedded LibSass transpiler. The extended edition is not required to use the [Dart Sass] transpiler.
-
-We recommend that you install the extended edition.
+- 在[处理图像][processing images]时支持编码WebP格式。您可以使用任版本解码WebP图像。
+- 使用嵌入式LibSass 转义器将[Sass转换为CSS][Transpile Sass to CSS]。扩展版不需要使用[Dat Sass][Dart Sass]转译机。
+  
+我们建议您安装扩展版。
 
 [dart sass]: /hugo-pipes/transpile-sass-to-css/#dart-sass
 [processing images]: /content-management/image-processing/

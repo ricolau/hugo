@@ -1,6 +1,6 @@
 ---
-title: Template lookup order
-description: Hugo uses the rules below to select a template for a given page, starting from the most specific.
+title: 模板渲染的优先级规则
+description: Hugo使用以下规则为给定页面选择模板，从最具体的开始。
 categories: [fundamentals,templates]
 keywords: [templates]
 menu:
@@ -11,49 +11,50 @@ weight: 30
 toc: true
 ---
 
-## Lookup rules
+## 渲染时优先级规则 Lookup rules
 
-Hugo takes the parameters listed below into consideration when choosing a template for a given page. The templates are ordered by specificity. This should feel natural, but look at the table below for concrete examples of the different parameter variations.
+Hugo在为给定页面选择模板时会考虑以下参数。模板按特定性排序。这应该感觉很自然，具体请查看下表中不同参数变化的具体示例。
 
-Kind
-: The page `Kind` (the home page is one). See the example tables below per kind. This also determines if it is a **single page** (i.e. a regular content page. We then look for a template in `_default/single.html` for HTML) or a **list page** (section listings, home page, taxonomy lists, taxonomy terms. We then look for a template in `_default/list.html` for HTML).
+种类 Kind
+: 不同的 `种类Kind` (主页是其中之一)。 下方示例表格中每一种分类都有展示。这也决定了页面是否是一个 **独立页面** (比如一个独立的页面，我们一般会去 `_default/single.html` 这个路径下寻找模板来渲染) 还是一个 **列表页** (子段落列表、主页、分类列表、分类条目，我们在这个路径下去 `_default/list.html` 寻找列表页的模板)。
 
-Layout
-: Can be set in front matter.
+布局 Layout
+: 可以在 页面头信息中设置
 
-Output Format
-: See [Custom Output Formats](/templates/output-formats). An output format has both a `name` (e.g. `rss`, `amp`, `html`) and a `suffix` (e.g. `xml`, `html`). We prefer matches with both (e.g. `index.amp.html`, but look for less specific templates.
+输出形式 Output Format
+: 查看 [自定义输出形式 Custom Output Formats](/templates/output-formats)。每种输出形式都有一个 `name`字段 (比如 `rss`, `amp`, `html`) 和一个后缀 `suffix` (比如 `xml`, `html`)。我们倾向于两者都进行匹配 (比如 `index.amp.html`, 而不是去匹配一个不太具体的模板。
 
-Note that if the output format's Media Type has more than one suffix defined, only the first is considered.
+请注意，如果输出格式的“媒体类型”定义了多个后缀，则只考虑第一个后缀。
 
-Language
-: We will consider a language tag in the template name. If the site language is `fr`, `index.fr.amp.html` will win over `index.amp.html`, but `index.amp.html` will be chosen before `index.fr.html`.
+语言 Language
+: 我们将在模板名称中考虑一个语言标记。如果网站语言是`fr`，`index.fr.amp.html`将比 `index.amp.html` 的优先级更高，但`index.amp.html`将先于`index.fr.html`选择。
 
-Type
-: Is value of `type` if set in front matter, else it is the name of the root section (e.g. "blog"). It will always have a value, so if not set, the value is "page".
 
-Section
-: Is relevant for `section`, `taxonomy` and `term` types.
+类型 Type
+: 如果在页面头信息中已经设置过了`type`的值则使用头信息中设置的，否则为根节的名称（例如"blog"）。它总是有一个值，所以如果不设置，则该值为“page”。
+
+部分 Section
+: 与 `section`、 `taxonomy`和 `term`类型相关。
 
 {{% note %}}
-Templates can live in either the project's or the themes' layout folders, and the most specific templates will be chosen. Hugo will interleave the lookups listed below, finding the most specific one either in the project or themes.
+模板可以位于项目或主题的布局文件夹中，Hugo将选择最匹配的那一个模板。Hugo在下面列出的列表中依次交错查找，直到找到项目或主题中最匹配的那一个模板。
 {{% /note %}}
 
-## Home page
+## 主页 Home page
 
 {{< datatable-filtered "output" "layouts" "Kind == home" "Example" "OutputFormat" "Suffix" "Template Lookup Order" >}}
 
-## Single pages
+## 独立页面 Single pages
 
 {{< datatable-filtered "output" "layouts" "Kind == page" "Example" "OutputFormat" "Suffix" "Template Lookup Order" >}}
 
-## Section pages
+## 子节点页面 Section pages
 
 A section page is a list of pages within a given section.
 
 {{< datatable-filtered "output" "layouts" "Kind == section" "Example" "OutputFormat" "Suffix" "Template Lookup Order" >}}
 
-## Taxonomy pages
+## 分类页面 Taxonomy pages
 
 A taxonomy page is a list of terms within a given taxonomy. The examples below assume the following site configuration:
 
@@ -64,7 +65,7 @@ category = 'categories'
 
 {{< datatable-filtered "output" "layouts" "Kind == taxonomy" "Example" "OutputFormat" "Suffix" "Template Lookup Order" >}}
 
-## Term pages
+## 条目页面 Term pages
 
 A term page is a list of pages associated with a given term. The examples below assume the following site configuration:
 

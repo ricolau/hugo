@@ -94,7 +94,7 @@ hugo server
 
 按 `Ctrl + C` 来停止 Hugo 开发服务器进程。
 
-## Add content
+## 添加新内容
 
 将一个新页面添加到您的网站。
 

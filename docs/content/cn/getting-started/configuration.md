@@ -1,7 +1,7 @@
 ---
-title: Configure Hugo
-linkTitle: Configuration
-description: How to configure your Hugo site.
+title: 配置 Hugo
+linkTitle: 配置 Hugo
+description: 如何配置你的 Hugo 网站
 categories: [fundamentals,getting started]
 keywords: [configuration,toml,yaml,json]
 menu:
@@ -13,14 +13,14 @@ aliases: [/overview/source-directory/,/overview/configuration/]
 toc: true
 ---
 
-## Configuration file
+## 配置文件 Configuration file
 
-Hugo uses the `hugo.toml`, `hugo.yaml`, or `hugo.json` (if found in the
-site root) as the default site configuration file.
 
-The user can choose to override that default with one or more site configuration files using the command-line `--config` switch.
+Hugo 使用`hugo.toml`, `hugo.yaml`, 或者 `hugo.json`（如果在网站根目录存在这个文件的话）作为网站的默认配置文件。
 
-Examples:
+用户可以使用命令行`--config`开关选择用一个或多个站点配置文件覆盖该默认值。
+
+示例 Examples:
 
 ```txt
 hugo --config debugconfig.toml
@@ -28,21 +28,23 @@ hugo --config a.toml,b.toml,c.toml
 ```
 
 {{% note %}}
-Multiple site configuration files can be specified as a comma-separated string to the `--config` switch.
+可以将多个站点配置文件指定为 `--config` 参数逗号分隔字符串。
 {{% /note %}}
 
-## hugo.toml vs config.toml
+## hugo.toml和 config.toml
 
-In Hugo 0.110.0 we changed the default configuration base file name to `hugo`, e.g. `hugo.toml`. We will still look for `config.toml` etc., but we recommend you eventually rename it (but you need to wait if you want to support older Hugo versions). The main reason we're doing this is to make it easier for code editors and build tools to identify this as a Hugo configuration file and project.
+在Hugo 0.110.0中，我们将默认的配置基本文件名更改为`hugo`，例如`hugo.toml`。我们仍然会查找`config.toml`等，但我们建议您最终重命名它（但如果您想支持较旧的Hugo版本，则需要等待）。我们这样做的主要原因是让代码编辑器和构建工具更容易将其识别为Hugo配置文件和项目。
+
 
 {{< new-in "0.110.0" >}}
 
-## Configuration directory
+## 配置目录 Configuration directory
 
-In addition to using a single site configuration file, one can use the `configDir` directory (default to `config/`) to maintain easier organization and environment specific settings.
+除了使用单个站点配置文件外，还可以使用`configDir`目录（默认为`config/`）来维护更容易的组织和环境特定设置。
 
-- Each file represents a configuration root object, such as `params.toml` for `[Params]`, `menu(s).toml` for `[Menu]`, `languages.toml` for `[Languages]` etc...
-- Each file's content must be top-level, for example:
+- 每个文件代表一个配置根对象，如`[params]`的`params.toml`、`[menu]`的` menu（s）.toml`、`[languages]`的 `languages.toml`等。。。
+
+- 每个文件的内容都必须是顶级的，例如：
 
 {{< code-toggle file="hugo" >}}
 [Params]
@@ -53,8 +55,8 @@ In addition to using a single site configuration file, one can use the `configDi
 foo = "bar"
 {{< /code-toggle >}}
 
-- Each directory holds a group of files containing settings unique to an environment.
-- Files can be localized to become language specific.
+- 每个目录都包含一组文件，其中包含环境特有的设置。
+- 文件可以本地化为特定语言。
 
 ```txt
 ├── config
@@ -71,8 +73,8 @@ foo = "bar"
 │       ├── hugo.toml
 │       └── params.toml
 ```
+考虑到上面的结构，当运行`hugo --environment staging`时，hugo将使用`config/_default` 中的每个设置，并在这些设置之上合并`staging`。
 
-Considering the structure above, when running `hugo --environment staging`, Hugo will use every setting from `config/_default` and merge `staging`'s on top of those.
 
 Let's take an example to understand this better. Let's say you are using Google Analytics for your website. This requires you to specify `googleAnalytics = "G-XXXXXXXX"` in `hugo.toml`. Now consider the following scenario:
 - You don't want the Analytics code to be loaded in development i.e. in your `localhost`

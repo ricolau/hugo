@@ -1,23 +1,24 @@
-## Prerequisites
+## 前置依赖 Prerequisites
 
-Although not required in all cases, [Git], [Go], and [Dart Sass] are commonly used when working with Hugo.
+虽然不是所有情况下都需要，但在使用Hugo 时，[Git]、[Go]和[Dat Sass]是常用的。
 
-Git is required to:
 
-- Build Hugo from source
-- Use the [Hugo Modules] feature
-- Install a theme as a Git submodule
-- Access [commit information] from a local Git repository
-- Host your site with services such as [CloudCannon], [Cloudflare Pages], [GitHub Pages], [GitLab Pages], and [Netlify]
+Git 主要用来：
 
-Go is required to:
+- 使用资源仓库如github来构建Hugo 站点
+- 使用 [Hugo Modules] 特性
+- 用 Git submodule的方式来安装一个主题
+- 从一个本地Git 仓库来访问 [commit information] 等提交信息
+- 通过虚拟主机来部署你的网站到 [CloudCannon], [Cloudflare Pages], [GitHub Pages], [GitLab Pages], 和 [Netlify]等等。
 
-- Build Hugo from source
-- Use the Hugo Modules feature
+Go 被需要的原因是：
 
-Dart Sass is required to transpile Sass to CSS when using the latest features of the Sass language.
+- 用来编译 Hugo 程序本身
+- 使用 Hugo Modules 特性
 
-Please refer to the relevant documentation for installation instructions:
+Dart Sass 被需要主要是因为：当使用Sass语言的最新功能时，Dart-Sass需要将Sass转换为CSS。
+
+有关安装说明，请参阅相关文档：
 
 - [Git][git install]
 - [Go][go install]

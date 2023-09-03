@@ -1,6 +1,6 @@
 ---
 title: 模板
-linkTitle: Overview
+linkTitle: 模板
 description: Go templating, template types and lookup order, shortcodes, and data.
 menu:
   docs:

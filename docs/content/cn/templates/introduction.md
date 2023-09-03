@@ -1,6 +1,6 @@
 ---
 title: 模板
-linkTitle: Templating
+linkTitle: 介绍
 description: Hugo 使用go语言的 `html/template` 和 `text/template` 库作为模板引擎的基础支撑。
 categories: [fundamentals,templates]
 keywords: [go]

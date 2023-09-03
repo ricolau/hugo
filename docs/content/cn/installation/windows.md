@@ -19,7 +19,7 @@ weight: 40
 
 ### Chocolatey
 
-[Chocolatey] is a free and open source package manager for Windows. This will install the extended edition of Hugo:
+[Chocolatey]是一款免费的Windows开源软件包管理器。这将安装Hugo的扩展版：
 
 ```sh
 choco install hugo-extended
@@ -29,7 +29,7 @@ choco install hugo-extended
 
 ### Scoop
 
-[Scoop] is a free and open source package manager for Windows. This will install the extended edition of Hugo:
+[Scoop]是一个适用于Windows的免费开源软件包管理器。这将安装Hugo的扩展版：
 
 ```sh
 scoop install hugo-extended
@@ -39,7 +39,7 @@ scoop install hugo-extended
 
 ### Winget
 
-[Winget] is Microsoft's official free and open source package manager for Windows. This will install the extended edition of Hugo:
+[Winget]是微软官方的Windows免费开源软件包管理器。这将安装Hugo的扩展版：
 
 ```sh
 winget install Hugo.Hugo.Extended

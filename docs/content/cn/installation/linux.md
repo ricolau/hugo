@@ -15,28 +15,29 @@ weight: 30
 
 {{% readfile file="/installation/common/03-prebuilt-binaries.md" %}}
 
-## Package managers
+## Package managers 安装包管理器
 
 ### Snap
 
-[Snap] is a free and open source package manager for Linux. Available for [most distributions], snap packages are simple to install and are automatically updated.
 
-The Hugo snap package is [strictly confined]. Strictly confined snaps run in complete isolation, up to a minimal access level that’s deemed always safe. The sites you create and build must be located within your home directory, or on removable media.
+[Snap]是一个免费的Linux开源软件包管理器。快照包适用于[大多数发行版][most distributions]，安装简单，并且会自动更新。
 
-This will install the extended edition of Hugo:
+
+Hugo快照包是[严格限制][strictly confined]的。严格限制的快照在完全隔离的情况下运行，最高可达被认为始终安全的最低访问级别。您创建和构建的网站必须位于主目录中或可移动媒体上。
+这将安装Hugo的扩展版：
 
 ```sh
 sudo snap install hugo
 ```
 
-To enable or revoke access to removable media:
+要启用或撤消对可移动介质（比如U盘）的访问，请执行以下操作：
 
 ```sh
 sudo snap connect hugo:removable-media
 sudo snap disconnect hugo:removable-media
 ```
 
-To enable or revoke access to SSH keys:
+要启用或撤消对SSH密钥的访问，请执行以下操作：
 
 ```sh
 sudo snap connect hugo:ssh-keys
@@ -51,13 +52,12 @@ sudo snap disconnect hugo:ssh-keys
 
 ## Repository packages
 
-Most Linux distributions maintain a repository for commonly installed applications. Please note that these repositories may not contain the [latest release].
+大多数Linux发行版都为通常安装的应用程序维护一个存储库。请注意，这些存储库可能不包含[最新版本][latest release]。
 
 [latest release]: https://github.com/gohugoio/hugo/releases/latest
 
 ### Arch Linux
-
-Derivatives of the [Arch Linux] distribution of Linux include [EndeavourOS], [Garuda Linux], [Manjaro], and others. This will install the extended edition of Hugo:
+Linux的[Arch Linux]发行版的衍生产品包括[EeavourOS]、[Garuda Linux]、[Manjaro]等。这将安装Hugo的扩展版：
 
 ```sh
 sudo pacman -S hugo
@@ -69,14 +69,14 @@ sudo pacman -S hugo
 [Garuda Linux]: https://garudalinux.org/
 
 ### Debian
-
-Derivatives of the [Debian] distribution of Linux include [elementary OS], [KDE neon], [Linux Lite], [Linux Mint], [MX Linux], [Pop!_OS], [Ubuntu], [Zorin OS], and others. This will install the extended edition of Hugo:
+Linux的[Debian]发行版的衍生产品包括[elementary OS]、[KDE neon]、[Linux Lite]、[Linux Mint]、[MX Linux]、[Pop!_OS]、[Ubuntu]、[Zorin OS]等。这将安装Hugo的扩展版：
 
 ```sh
 sudo apt install hugo
 ```
 
-You can also download Debian packages from the [latest release] page.
+您也可以从[最新版本][latest release]页面下载Debian软件包。
+
 
 [Debian]: https://www.debian.org/
 [elementary OS]: https://elementary.io/
@@ -90,7 +90,8 @@ You can also download Debian packages from the [latest release] page.
 
 ### Fedora
 
-Derivatives of the [Fedora] distribution of Linux include [CentOS], [Red Hat Enterprise Linux], and others. This will install the extended edition of Hugo:
+Linux的[Fedora]发行版的衍生产品包括[CentOS]、[Red Hat Enterprise Linux]等。这将安装Hugo的扩展版：
+
 
 
 ```sh
@@ -103,7 +104,8 @@ sudo dnf install hugo
 
 ### openSUSE
 
-Derivatives of the [openSUSE] distribution of Linux include [GeckoLinux], [Linux Karmada], and others. This will install the extended edition of Hugo:
+
+Linux的[openSUSE]发行版的衍生产品包括[GeckoLinux]、[Linux Karmada]和其他。这将安装Hugo的扩展版：
 
 
 ```sh
@@ -116,7 +118,8 @@ sudo zypper install hugo
 
 ### Solus
 
-The [Solus] distribution of Linux includes Hugo in its package repository. This will install the _standard_ edition of Hugo:
+Linux的[Solus]发行版在其软件包存储库中包含Hugo。这将安装Hugo的_standard_ 标准版本：
+
 
 ```sh
 sudo eopkg install hugo
@@ -128,15 +131,15 @@ sudo eopkg install hugo
 
 {{% readfile file="/installation/common/05-build-from-source.md" %}}
 
-## Comparison
+## Comparison 对比
 
-||Prebuilt binaries|Package managers|Repository packages|Docker|Build from source
+||安装包安装|软件管理器安装|Repository packages|Docker安装|源代码安装
 :--|:--:|:--:|:--:|:--:|:--:
-Easy to install?|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:
-Easy to upgrade?|:heavy_check_mark:|:heavy_check_mark:|varies|:heavy_check_mark:|:heavy_check_mark:
-Easy to downgrade?|:heavy_check_mark:|:heavy_check_mark: [^1]|varies|:heavy_check_mark:|:heavy_check_mark:
-Automatic updates?|:x:|varies [^2]|:x:|:x: [^3]|:x:
-Latest version available?|:heavy_check_mark:|:heavy_check_mark:|varies|:heavy_check_mark:|:heavy_check_mark:
+易安装?|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:|:heavy_check_mark:
+易升级?|:heavy_check_mark:|:heavy_check_mark:|varies|:heavy_check_mark:|:heavy_check_mark:
+易降级?|:heavy_check_mark:|:heavy_check_mark: [^1]|varies|:heavy_check_mark:|:heavy_check_mark:
+自动升级?|:x:|varies[^2]|:x:|:x: [^3]|:x:
+最新版本支持?|:heavy_check_mark:|:heavy_check_mark:|varies|:heavy_check_mark:|:heavy_check_mark:
 
 [^1]: Easy if a previous version is still installed.
 [^2]: Snap packages are automatically updated. Homebrew requires advanced configuration.

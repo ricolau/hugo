@@ -1,6 +1,6 @@
-### Homebrew
+### Homebrew安装
 
-[Homebrew] is a free and open source package manager for macOS and Linux. This will install the extended edition of Hugo:
+[Homebrew]是一款适用于macOS和Linux的免费开源软件包管理器。这将安装Hugo的扩展版：
 
 ```sh
 brew install hugo

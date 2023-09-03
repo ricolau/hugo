@@ -1,5 +1,5 @@
 ---
-linkTitle: Overview
+linkTitle: 概览
 title: 快速开始
 description: 在您喜欢的操作系统上安装Hugo的快速入门和指南。
 categories: [getting started]

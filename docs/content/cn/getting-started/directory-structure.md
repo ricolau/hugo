@@ -1,6 +1,6 @@
 ---
-title: Directory structure
-description: Hugo's CLI scaffolds a project directory structure and then takes that single directory and uses it as the input to create a complete website.
+title: 目录结构
+description: Hugo的CLI命令行构建了一个项目目录结构，然后将该目录作为输入创建一个完整的网站。
 categories: [fundamentals,getting started]
 keywords: [source, organization, directories]
 menu:
@@ -12,11 +12,11 @@ aliases: [/overview/source-directory/]
 toc: true
 ---
 
-## New site scaffolding
+## 新网站脚手架 New site scaffolding
 
 {{< youtube sB0HLHjgQ7E >}}
 
-Running `hugo new site example` from the command line creates a directory structure with the following elements:
+从命令行运行“ `hugo new site example`将创建一个包含以下元素的目录结构：
 
 ```txt
 example/
@@ -32,43 +32,52 @@ example/
 └── hugo.toml
 ```
 
-## Directory structure explained
+## 目录结构释义 Directory structure explained
 
-The following is a high-level overview of each of the directories with links to each of their respective sections within the Hugo docs.
+以下是每个目录的高级概述，其中包含指向Hugo文档中各个部分的链接。
 
-[`archetypes`](/content-management/archetypes/)
-: You can create new content files in Hugo using the `hugo new content` command.
-By default, Hugo will create new content files with at least `date`, `title` (inferred from the file name), and `draft = true`. This saves time and promotes consistency for sites using multiple content types. You can create your own [archetypes] with custom preconfigured front matter fields as well.
+[`archetypes`](/content-management/archetypes/)目录
+: 您可以使用 `hugo new content` 命令在Hugo中创建新的内容文件。
+默认情况下，Hugo将创建至少具有`date`、`title`（根据文件名推断）和`draft = true`的新内容文件。这为使用多种内容类型的网站节省了时间并提高了一致性。您也可以使用自定义的预配置前置字段创建自己的[原型][archetypes]。
 
-[`assets`]
-: Stores all the files which need be processed by [Hugo Pipes](/hugo-pipes/). Only the files whose `.Permalink` or `.RelPermalink` are used will be published to the `public` directory.
+[`assets`]目录
+: 存储所有需要由[Hugo Pipes](/hugo-pipes/)处理的文件。只有使用了`.Permalink` 或`.RelPermalink`的文件才会发布到 `public` 目录。
 
-[`config`](/getting-started/configuration/)
-: Hugo ships with a large number of [configuration directives].
-The [configuration directory](/getting-started/configuration/#configuration-directory) is where those directives are stored as JSON, YAML, or TOML files. Every root setting object can stand as its own file and structured by environments.
-Projects with minimal settings and no need for environment awareness can use a single `hugo.toml` file at its root.
 
-Many sites may need little to no configuration, but Hugo ships with a large number of [configuration directives] for more granular directions on how you want Hugo to build your website. Note: the `config` directory is not created by default.
+[`config`](/getting-started/configuration/)目录：Hugo支持大量的[配置命令][configuration directives]。
+这些配置文件内容都以JSON、YAML或者TOML文件的形式存储在 [配置文件夹configuration directory](/getting-started/configuration/#configuration-directory)。
+每个根设置对象都可以作为自己的文件，并由环境进行结构化。
+设置最少且不需要管理开发、生产环境的项目可以在其根目录下使用单个`hugo.toml` 文件。
 
-[`content`]
-: All content for your website will live inside this directory. Each top-level folder in Hugo is considered a [content section]. For example, if your site has three main sections---`blog`, `articles`, and `tutorials`---you will have three directories at `content/blog`, `content/articles`, and `content/tutorials`. Hugo uses sections to assign default [content types].
+许多网站可能几乎不需要配置，但Hugo提供了大量的[配置指令][configuration directives] ，以方便对Hugo如何构建网站进行更精细的配置和表达。
+
+[`content`]目录
+: 您网站的所有内容都将位于此目录中。 Hugo中的每个顶级文件夹都被视为[内容部分][content section]。
+
+ 例如，如果您的网站有三个主要部分---`blog`, `articles`, 和 `tutorials`---你将有三个不同的目录在 `content/blog`, `content/articles`, and `content/tutorials`。 Hugo使用子目录来指定默认值[content types].
 
 [`data`](/templates/data-templates/)
-: This directory is used to store configuration files that can be
-used by Hugo when generating your website. You can write these files in YAML, JSON, or TOML format. In addition to the files you add to this folder, you can also create [data templates] that pull from dynamic content.
+目录 : 此目录用于存储配置文件
+Hugo在生成您的网站时使用。您可以用YAML、JSON或TOML格式编写这些文件。 除了添加到此文件夹中的文件外，您还可以创建从动态内容中提取的[数据模板][data templates]。
 
-[`layouts`]
-: Stores templates in the form of `.html` files that specify how views of your content will be rendered into a static website. Templates include [list pages][lists], your [homepage], [taxonomy templates], [partials], [single page templates][singles], and more.
 
-[`static`]
-: Stores all the static content: images, CSS, JavaScript, etc. When Hugo builds your site, all assets inside your static directory are copied over as-is. A good example of using the `static` folder is for [verifying site ownership on Google Search Console][searchconsole], where you want Hugo to copy over a complete HTML file without modifying its content.
+[`layouts`]目录
+: 以`.html`文件的形式存储模板，这些文件指定如何将内容展示呈现到静态网站中。
+其中包含[列表页模板list pages][lists]、 你的 [主页模板 homepage][homepage]、 [分类模板 taxonomy templates][taxonomy templates]、 [子模板partials][partials]、 [单一页面模板single page templates][singles] 以及更多模板等。
+
+
+[`static`]目录
+: 存储所有静态内容：图像、CSS、JavaScript等。当Hugo构建您的网站时，静态目录中的所有资产都会按原样复制。
+使用 `static`文件夹的一个很好的例子是[在谷歌搜索控制台上验证网站所有权][searchconsole]，您希望Hugo在不修改其内容的情况下直接展示完整原样的HTML文件中的内容。
+
 
 {{% note %}}
-From **Hugo 0.31** you can have multiple static directories.
+从**Hugo 0.31**开始，您可以拥有多个静态目录。
 {{% /note %}}
 
-[`resources`]
-: Caches some files to speed up generation. Can be also used by template authors to distribute built Sass files, so you don't have to have the preprocessor installed. Note: resources directory is not created by default.
+[`resources`]目录
+: 缓存一些文件以加快生成速度。模板作者也可以使用它来分发构建的Sass文件，所以你不必安装预处理器。注意：默认情况下不会创建resources目录。
+
 
 [archetypes]: /content-management/archetypes/
 [`assets`]: /hugo-pipes/introduction#asset-directory

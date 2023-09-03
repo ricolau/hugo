@@ -93,14 +93,14 @@ aliases: [/templates/menus/]
 {{- end }}
 {{< /code >}}
 
-## Menu entry parameters
+## 菜单中的参数 Menu entry parameters
 
-When you define menu entries [in site configuration] or [in front matter], you can include a `params` key as shown in these examples:
+当您定义菜单项[在站点配置中][in site configuration]或[在头信息][in front matter]时，您可以包括 `params`键，如以下示例所示：
 
-- [Menu entry defined in site configuration]
-- [Menu entry defined in front matter]
+- [菜单项定义在站点配置中][Menu entry defined in site configuration]
+- [菜单项定义在头信息配置中][Menu entry defined in front matter]
 
-This simplistic example renders a `class` attribute for each anchor element. Code defensively using `with` or `if` to handle entries where `params.class` is not defined.
+这个简单的例子为每个锚点元素呈现一个`class` 属性。代码防御性地使用`with`或`if`来处理`params.class` 中未定义的条目。
 
 {{< code file="layouts/partials/menu.html" >}}
 {{- range site.Menus.main }}
@@ -110,9 +110,9 @@ This simplistic example renders a `class` attribute for each anchor element. Cod
 {{- end }}
 {{< /code >}}
 
-## Localize
+## 本地化 Localize
 
-Hugo provides two methods to localize your menu entries. See [multilingual].
+Hugo 支持两种防止来本地化你的菜单，可见 [多语言支持][multilingual].
 
 [automatic]: /content-management/menus/#define-automatically
 [define menu entries]: /content-management/menus/
