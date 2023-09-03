@@ -1,7 +1,7 @@
 ---
-title: Getting started
 linkTitle: Overview
-description: Quick start and guides for installing Hugo on your preferred operating system.
+title: 快速开始
+description: 在您喜欢的操作系统上安装Hugo的快速入门和指南。
 categories: [getting started]
 keywords: [usage,docs]
 menu:
@@ -13,7 +13,7 @@ weight: 10
 aliases: [/overview/introduction/]
 ---
 
-If this is your first time using Hugo and you've [already installed Hugo on your machine][installed], we recommend the [quick start]. You can also use [external learning resources] to learn Hugo.
+如果你是初次使用 Hugo 并且 [在你的服务器上安装完毕][installed], 我们推荐你转到 [快速开始][quick start]. 当然，你也可以查看 [更多扩展学习资源][external learning resources] 来继续学习Hugo。
 
 [installed]: /installation/
 [quick start]: /getting-started/quick-start/

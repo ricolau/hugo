@@ -1,7 +1,7 @@
 ---
-title: Templating
+title: 模板
 linkTitle: Templating
-description: Hugo uses Go's `html/template` and `text/template` libraries as the basis for the templating.
+description: Hugo 使用go语言的 `html/template` 和 `text/template` 库作为模板引擎的基础支撑。
 categories: [fundamentals,templates]
 keywords: [go]
 menu:
@@ -14,54 +14,51 @@ toc: true
 ---
 
 {{% note %}}
-The following is only a primer on Go Templates. For an in-depth look into Go Templates, check the official [Go docs](https://golang.org/pkg/text/template/).
+以下只是Go Templates的入门教程。要深入了解Go模板，请查看官方的[Go docs](https://golang.org/pkg/text/template/)。
 {{% /note %}}
 
-Go Templates provide an extremely simple template language that adheres to the belief that only the most basic of logic belongs in the template or view layer.
+Go模板提供了一种极其简单的模板语言，它坚持这样一种信念，即只有最基本的逻辑才属于模板或展示层。
 
-## Basic syntax
+## 基础语法 Basic syntax
 
-Go Templates are HTML files with the addition of [variables][variables] and [functions][functions]. Go Template variables and functions are accessible within `{{ }}`.
+Go模板是添加了[variables][variables]和[functions][functions]标签的HTML文件。Go Template变量和函数可以使用`{{ }}`标签访问。
 
-### Access a predefined variable
+### 使用一个已经定义好的变量
 
-A _predefined variable_ could be a variable already existing in the
-current scope (like the `.Title` example in the [Variables](#variables) section below) or a custom variable (like the
-`$address` example in that same section).
-
+一个已经定义好的变量应该是在当前作用域内已经存在并生效的（就像下面这段儿[Variables](#variables) 中 `.Title` 的示例一样）变量，或者是一个自定义的变量（比如同样下面段落中的 `$address` 示例）。
 
 ```go-html-template
 {{ .Title }}
 {{ $address }}
 ```
 
-Parameters for functions are separated using spaces. The general syntax is:
+函数的参数使用空格分隔。一般语法为：
 
 ```go-html-template
 {{ FUNCTION ARG1 ARG2 .. }}
 ```
 
-The following example calls the `add` function with inputs of `1` and `2`:
+下方的示例是调用`add`这个 funciton 的时候，传入 `1` 和 `2` 这两个参数：
 
 ```go-html-template
 {{ add 1 2 }}
 ```
 
-#### Methods and fields are accessed via dot notation
+#### 方法和字段通过点 `.` 表示法访问
 
-Accessing the Page Parameter `bar` defined in a piece of content's [front matter].
+使用在页面[文件头][front matter]中已经定义的 `bar` 参数：
 
 ```go-html-template
 {{ .Params.bar }}
 ```
 
-#### Parentheses can be used to group items together
+#### 括号可用于将项目组合在一起
 
 ```go-html-template
 {{ if or (isset .Params "alt") (isset .Params "caption") }} Caption {{ end }}
 ```
 
-#### A single statement can be split over multiple lines
+#### 单个语句可以拆分为多行
 
 ```go-html-template
 {{ if or
@@ -70,31 +67,27 @@ Accessing the Page Parameter `bar` defined in a piece of content's [front matter
 }}
 ```
 
-#### Raw string literals can include newlines
+#### 原始字符串文字可以包括换行符
 
 ```go-html-template
 {{ $msg := `Line one.
 Line two.` }}
 ```
 
-## Variables
+## 变量
 
-Each Go Template gets a data object. In Hugo, each template is passed
-a `Page`.  In the below example, `.Title` is one of the elements
-accessible in that [`Page` variable][pagevars].
-
-With the `Page` being the default scope of a template, the `Title`
-element in current scope (`.` -- "the **dot**") is accessible simply
-by the dot-prefix (`.Title`):
+每个Go 模板都会获得一个数据对象。在Hugo中，每个模板都被传递和定义一个 `Page` 参数。
+在下方的示例中，`.Title` 是在[`Page` variable][pagevars] 变量列表中的一个可以访问和使用的变量。
+`Page`是一个模板的默认生效范围, 因此在这个范围内访问 `Title` 就可以使用带有 点 `.`  的前缀比如  `.Title` 就可以了.
 
 ```go-html-template
 <title>{{ .Title }}</title>
 ```
 
-Values can also be stored in custom variables and referenced later:
+值也可以存储在自定义变量中，并在以后引用：
 
 {{% note %}}
-The custom variables need to be prefixed with `$`.
+自定义变量需要加前缀 `$`.
 {{% /note %}}
 
 ```go-html-template
@@ -102,9 +95,7 @@ The custom variables need to be prefixed with `$`.
 {{ $address }}
 ```
 
-Variables can be re-defined using the `=` operator. The example below
-prints "Var is Hugo Home" on the home page, and "Var is Hugo Page" on
-all other pages:
+变量可以被 `=` 操作符进行重新赋值。下面的示例会打印“Var is Hugo Home”在 首页 中，并且在其在其他页面中打印 “Var is Hugo Page”：
 
 ```go-html-template
 {{ $var := "Hugo Page" }}
@@ -114,92 +105,87 @@ all other pages:
 Var is {{ $var }}
 ```
 
-## Functions
+## 函数 Funtions
 
-Go Templates only ship with a few basic functions but also provide a mechanism for applications to extend the original set.
+Go模板只附带了一些基本功能，但也为应用程序提供了一种扩展原始集合的机制。
 
-[Hugo template functions][functions] provide additional functionality specific to building websites. Functions are called by using their name followed by the required parameters separated by spaces. Template functions cannot be added without recompiling Hugo.
+[Hugo 模板函数 template functions][functions] 提供特定于构建网站的附加功能。函数的调用方法是使用它们的名称，后跟用空格分隔的必需参数。如果不重新编译Hugo，就无法添加模板函数。
 
-### Example 1: adding numbers
+### Example 1: 数字加和
 
 ```go-html-template
 {{ add 1 2 }}
 <!-- prints 3 -->
 ```
 
-### Example 2: comparing numbers
+### Example 2: 数字比较
 
 ```go-html-template
 {{ lt 1 2 }}
 <!-- prints true (i.e., since 1 is less than 2) -->
 ```
-
-Note that both examples make use of Go Template's [math][math] functions.
-
-{{% note %}}
-There are more boolean operators than those listed in the Hugo docs in the [Go Template documentation](https://golang.org/pkg/text/template/#hdr-Functions).
-{{% /note %}}
-
-## Includes
-
-When including another template, you will need to pass it the data that it would
-need to access.
+注意，以上两个示例都是 Go Template 模板默认支持的 [数学计算 math][math] 的函数。
 
 {{% note %}}
-To pass along the current context, please remember to include a trailing **dot**.
+在[Go Template documentation](https://golang.org/pkg/text/template/#hdr-Functions) 文档中列举了比Hugo 文档中更多的布尔运算方式可以参考。
 {{% /note %}}
 
-The templates location will always be starting at the `layouts/` directory
-within Hugo.
+## 包含标签 Includes
 
-### Partial
+当包含另一个模板时，您需要将它需要访问的数据传递给它。
 
-The [`partial`][partials] function is used to include _partial_ templates using
-the syntax `{{ partial "<PATH>/<PARTIAL>.<EXTENSION>" . }}`.
+{{% note %}}
+要传递当前上下文，请记住包含一个尾随的 **.** 。
+{{% /note %}}
 
-Example of including a `layouts/partials/header.html` partial:
+模板位置始终在 Hugo中的`layouts` 目录中，并以 `layout/` 路径开头。
+
+### 子模板标签 Partial
+
+The [子模板 `partial`][partials] 功能用来引入子模板，使用的方式为 `{{ partial "<PATH>/<PARTIAL>.<EXTENSION>" . }}`。
+
+比如引入一个路径为 `layouts/partials/header.html` 的子模板:
 
 ```go-html-template
 {{ partial "header.html" . }}
 ```
 
-### Template
+### 模板标签 Template
 
-The `template` function was used to include _partial_ templates
-in much older Hugo versions. Now it's useful only for calling
-[_internal_ templates][internal templates]. The syntax is `{{ template
+`template` 标签在一些老的历史版本中是用来使用“子模板”的。但是现在它只用来调用 
+[内部模板 _internal_ templates][internal templates]. 语法为 `{{ template
 "_internal/<TEMPLATE>.<EXTENSION>" . }}`.
 
+
 {{% note %}}
-The available **internal** templates can be found
+可以用的 **internal** 模板可以去这里找：
 [here](https://github.com/gohugoio/hugo/tree/master/tpl/tplimpl/embedded/templates).
 {{% /note %}}
 
-Example of including the internal `opengraph.html` template:
+包含 internal 的 `opengraph.html` 模板示例：
 
 ```go-html-template
 {{ template "_internal/opengraph.html" . }}
 ```
 
-## Logic
+## 逻辑条件 Logic
 
-Go Templates provide the most basic iteration and conditional logic.
+Go模板提供了最基本的迭代和条件逻辑。
 
-### Iteration
+### 迭代/遍历 Iteration
 
-The Go Templates make heavy use of `range` to iterate over a _map_,
-_array_, or _slice_. The following are different examples of how to
-use `range`.
+Go 模板 Templates 重度使用 `range` 来迭代和遍历 _map_,
+_array_, 或 _slice_ 。 接下来是几个不同的适合用 `range`的示例：
 
-#### Example 1: using context (`.`)
+#### Example 1: 使用上下文 (`.`)
 
 ```go-html-template
 {{ range $array }}
-    {{ . }} <!-- The . represents an element in $array -->
+    {{ . }} <!-- 这个 . 代表了 $array 中的一个元素-->
 {{ end }}
 ```
 
-#### Example 2: declaring a variable name for an array element's value
+#### Example 2: 为 array 中的一个元素声明一个变量名
 
 ```go-html-template
 {{ range $elem_val := $array }}
@@ -207,10 +193,10 @@ use `range`.
 {{ end }}
 ```
 
-#### Example 3: declaring variable names for an array element's index _and_ value
+#### Example 3: 为一个 array 中元素的索引 index、值 value 分别声明变量名
 
-For an array or slice, the first declared variable will map to each
-element's index.
+
+对于数组或切片，第一个声明的变量将映射到每个元素的index。
 
 ```go-html-template
 {{ range $elem_index, $elem_val := $array }}
@@ -218,10 +204,9 @@ element's index.
 {{ end }}
 ```
 
-#### Example 4: declaring variable names for a map element's key _and_ value
+#### Example 4: 为map元素的键、值分别声明变量名
 
-For a map, the first declared variable will map to each map element's
-key.
+对于map类型，第一个声明的变量将映射到每个映射元素的key。
 
 ```go-html-template
 {{ range $elem_key, $elem_val := $map }}
@@ -229,9 +214,9 @@ key.
 {{ end }}
 ```
 
-#### Example 5: conditional on empty _map_, _array_, or _slice_
+#### Example 5: 对于 空map、空 array、空slice 的判断和使用：
 
-If the _map_, _array_, or _slice_ passed into the range is zero-length then the else statement is evaluated.
+如果参数传递过来的 map、array、slice 是空的，`else` 中的内容会被执行：
 
 ```go-html-template
 {{ range $array }}
@@ -241,11 +226,11 @@ If the _map_, _array_, or _slice_ passed into the range is zero-length then the 
 {{ end }}
 ```
 
-### Conditionals
+### 条件判断 Conditionals
 
-`if`, `else`, `with`, `or`, `and` and `not` provide the framework for handling conditional logic in Go Templates. Like `range`, `if` and `with` statements are closed with an `{{ end }}`.
+Go Templates 中的 `if`, `else`, `with`, `or`, `and` 和 `not` 为Hugo 提供了条件逻辑操作能力。比如 `range`, `if` 和 `with` 等操作符需要使用 `{{ end }}` 来闭合。
 
-Go Templates treat the following values as **false**:
+Go Templates 对以下值得处理为  **false**:
 
 - `false` (boolean)
 - 0 (integer)
@@ -253,15 +238,14 @@ Go Templates treat the following values as **false**:
 
 #### Example 1: `with`
 
-It is common to write "if something exists, do this" kind of
-statements using `with`.
+
+`with` 一般用来表示“如果这个变量存在，那么就执行以下逻辑”：
 
 {{% note %}}
-`with` rebinds the context `.` within its scope (just like in `range`).
+`with` 会重新绑定`.`的上下文到自己的作用域内 (就像 `range` 一样)。
 {{% /note %}}
 
-It skips the block if the variable is absent, or if it evaluates to
-"false" as explained above.
+如果变量不存在，或者如上所述计算结果为“false”，则跳过块。
 
 ```go-html-template
 {{ with .Params.title }}
@@ -271,9 +255,7 @@ It skips the block if the variable is absent, or if it evaluates to
 
 #### Example 2: `with` .. `else`
 
-Below snippet uses the "description" front-matter parameter's value if
-set, else uses the default `.Summary` [Page variable][pagevars]:
-
+下面的代码的逻辑为：如果在页面“头信息”中定义了 "description" 变量的值，就使用它；否则使用[页面变量][pagevars]中的`.Summary` 变量的值。
 
 ```go-html-template
 {{ with .Param "description" }}
@@ -283,14 +265,13 @@ set, else uses the default `.Summary` [Page variable][pagevars]:
 {{ end }}
 ```
 
-See the [`.Param` function][param].
+查看 [`.Param` function][param].
 
 #### Example 3: `if`
 
-An alternative (and a more verbose) way of writing `with` is using
-`if`. Here, the `.` does not get rebound.
+写“with”的另一种（也是更详细的）方式是使用“if”。比如：
 
-Below example is "Example 1" rewritten using `if`:
+下面的代码是使用 `if` 的方式重写了 "Example 1" 的实现：
 
 ```go-html-template
 {{ if isset .Params "title" }}
@@ -300,9 +281,9 @@ Below example is "Example 1" rewritten using `if`:
 
 #### Example 4: `if` .. `else`
 
-Below example is "Example 2" rewritten using `if` .. `else`, and using
-[`isset` function][isset] + `.Params` variable (different from the
-[`.Param` **function**][param]) instead:
+下面是 "Example 2" 采用 `if` .. `else`进行重写并且使用
+[`isset` function][isset] + `.Params` 访问变量的实现。 (与
+[`.Param` **function**][param]不同) :
 
 ```go-html-template
 {{ if (isset .Params "description") }}
@@ -314,7 +295,7 @@ Below example is "Example 2" rewritten using `if` .. `else`, and using
 
 #### Example 5: `if` .. `else if` .. `else`
 
-Unlike `with`, `if` can contain `else if` clauses too.
+与 `with`不同，  `if` 可以包含 `else if` 分支配合：
 
 ```go-html-template
 {{ if (isset .Params "description") }}
@@ -332,17 +313,17 @@ Unlike `with`, `if` can contain `else if` clauses too.
 {{ if (and (or (isset .Params "title") (isset .Params "caption")) (isset .Params "attr")) }}
 ```
 
-## Pipes
+## 管道传参 Pipes
 
-One of the most powerful components of Go Templates is the ability to stack actions one after another. This is done by using pipes. Borrowed from Unix pipes, the concept is simple: each pipeline's output becomes the input of the following pipe.
+Go Templates最强大的组件之一是能够把一个接一个地动作函数进行连续堆叠。这是通过使用管道来完成的。这个概念借用了Unix管道，很简单：每个管道的输出都成为下面管道的输入。
 
-Because of the very simple syntax of Go Templates, the pipe is essential to being able to chain together function calls. One limitation of the pipes is that they can only work with a single value and that value becomes the last parameter of the next pipeline.
+由于Go Templates的语法非常简单，管道对于能够将函数调用链接在一起至关重要。管道的一个限制是，它们只能使用单个值，并且该值将成为下一个管道的最后一个参数。
 
-A few simple examples should help convey how to use the pipe.
+几个简单的例子应该有助于传达如何使用管道。
 
 ### Example 1: `shuffle`
 
-The following two examples are functionally the same:
+以下两个示例在功能上相同：
 
 ```go-html-template
 {{ shuffle (seq 1 5) }}
@@ -355,7 +336,7 @@ The following two examples are functionally the same:
 
 ### Example 2: `index`
 
-The following accesses the page parameter called "disqus_url" and escapes the HTML. This example also uses the [`index` function](/functions/index-function/), which is built into Go Templates:
+下面访问名为“disqus_url”的页面参数并转义HTML。此示例还使用[`index`函数]（/functions/index function/），该函数内置于Go Templates中：
 
 ```go-html-template
 {{ index .Params "disqus_url" | html }}
@@ -369,7 +350,7 @@ Stuff Here
 {{ end }}
 ```
 
-Could be rewritten as
+等价于以下代码：
 
 ```go-html-template
 {{ if isset .Params "caption" | or isset .Params "title" | or isset .Params "attr" }}
@@ -377,24 +358,21 @@ Stuff Here
 {{ end }}
 ```
 
-## Context (aka "the dot") {#the-dot}
+## 上下文访问（即 “点”访问） Context (aka "the dot") {#the-dot}
 
-The most easily overlooked concept to understand about Go Templates is
-that `{{ . }}` always refers to the **current context**.
+在Go Templates 中最容易被忽视的概念就是 `{{ . }}`，这个永远表示 **当前上下文**。
 
-- In the top level of your template, this will be the data set made
-  available to it.
-- Inside an iteration, however, it will have the value of the
-  current item in the loop; i.e., `{{ . }}` will no longer refer to
-  the data available to the entire page.
+- 在模板的顶层，这将是可供其使用的数据集。
+-然而，在迭代中，它将具有
+循环中的当前项目；即 `{{ . }}` 将不再指代
+整个页面可用的数据。
 
-If you need to access page-level data (e.g., page parameters set in front
-matter) from within the loop, you will likely want to do one of the
-following:
+如果在循环结构中你想访问页面级别的变量或者参数
+（比如`页面头信息` parameters 中设置的参数） ，你需要按照下方的方法其中之一做：
 
-### 1. Define a variable independent of context
+### 1.定义一个独立于当前上下文的变量
 
-The following shows how to define a variable independent of the context.
+下面展示了如何定义独立于上下文的变量。
 
 {{< code file="tags-range-with-page-variable.html" >}}
 {{ $title := .Site.Title }}
@@ -409,12 +387,13 @@ The following shows how to define a variable independent of the context.
 {{< /code >}}
 
 {{% note %}}
-Notice how once we have entered the loop (i.e. `range`), the value of `{{ . }}` has changed. We have defined a variable outside the loop (`{{ $title }}`) that we've assigned a value so that we have access to the value from within the loop as well.
+请注意，一旦我们进入循环（比如 `range` 中）， `{{ . }}` 的值就会发生变化。我们在循环外定义了一个变量（`{{ $title }}`），并为其赋值，以便我们也可以从循环内访问该值。
+
 {{% /note %}}
 
-### 2. Use `$.` to access the global context
+### 2. 使用 `$.` 来访问全局上下文中的变量
 
-`$` has special significance in your templates. `$` is set to the starting value of `.` ("the dot") by default. This is a [documented feature of Go text/template][dotdoc]. This means you have access to the global context from anywhere. Here is an equivalent example of the preceding code block but now using `$` to grab `.Site.Title` from the global context:
+`$` 在模板中有特殊意义。 `$` 默认为使用 `.` 时的前置初始符号。 这是 [Go text/template 的文档特性][dotdoc]。这意味着你可以在任何地方访问全局上下文/变量。 下面演示如何在代码块中使用 `$` 来访问全局上下文/变量中的`.Site.Title` 属性。
 
 {{< code file="range-through-tags-w-global.html" >}}
 <ul>
@@ -427,15 +406,16 @@ Notice how once we have entered the loop (i.e. `range`), the value of `{{ . }}` 
 </ul>
 {{< /code >}}
 
-{{% warning "Don't Redefine the Dot" %}}
-The built-in magic of `$` would cease to work if someone were to mischievously redefine the special character; e.g. `{{ $ := .Site }}`. *Don't do it.* You may, of course, recover from this mischief by using `{{ $ := . }}` in a global context to reset `$` to its default value.
+{{% note "不要给 `.` 做重新赋值" %}}
+如果有人恶意地重新定义这个特殊角色，`$` 的内在魔力就会失效；例如 `{{ $ := .Site }}`*不要这么做。*当然，您可以通过在全局上下文中使用`{{ $ := . }}` 将 `$` 重置为默认值来从这种危害中恢复过来。
+
 {{% /note %}}
 
-## Whitespace
+## 空格 Whitespace
 
-Go 1.6 includes the ability to trim the whitespace from either side of a Go tag by including a hyphen (`-`) and space immediately beside the corresponding `{{` or `}}` delimiter.
+Go 1.6包括通过在相应的 `{{` 或 `}}`分隔符旁边包括连字符（`-`）和空格来修剪Go标记两侧的空白的能力。
 
-For instance, the following Go Template will include the newlines and horizontal tab in its HTML output:
+例如，下面的Go Template将在其HTML输出中包括换行符和水平选项卡：
 
 ```go-html-template
 <div>
@@ -443,15 +423,14 @@ For instance, the following Go Template will include the newlines and horizontal
 </div>
 ```
 
-Which will output:
+将输出:
 
 ```html
 <div>
   Hello, World!
 </div>
 ```
-
-Leveraging the `-` in the following example will remove the extra white space surrounding the `.Title` variable and remove the newline:
+利用以下示例中的 `-` 将删除`.Title`变量周围的多余空白，并删除换行符：
 
 ```go-html-template
 <div>
@@ -459,59 +438,59 @@ Leveraging the `-` in the following example will remove the extra white space su
 </div>
 ```
 
-Which then outputs:
+将输出:
 
 ```html
 <div>Hello, World!</div>
 ```
 
-Go considers the following characters _whitespace_:
+Go会将以下内容页视为空格：
 
 * <kbd>space</kbd>
 * horizontal <kbd>tab</kbd>
 * carriage <kbd>return</kbd>
 * newline
 
-## Comments
+## 注释
+为了保持模板的有序性并在整个团队中共享信息，您可能需要在模板中添加注释。对Hugo来说，有两种方法可以做到这一点。
 
-In order to keep your templates organized and share information throughout your team, you may want to add comments to your templates. There are two ways to do that with Hugo.
 
-### Go templates comments
+### Go templates 注释
 
-Go Templates support `{{/*` and `*/}}` to open and close a comment block. Nothing within that block will be rendered.
+转到模板支持`{{/*` 和`*/}}` 以打开和关闭注释块。该块中的任何内容都不会被渲染。
 
-For example:
+例如：
 
 ```go-html-template
 Bonsoir, {{/* {{ add 0 + 2 }} */}}Eliott.
 ```
 
-Will render `Bonsoir, Eliott.`, and not care about the syntax error (`add 0 + 2`) in the comment block.
+将渲染 `Bonsoir, Eliott.`，将忽略注释木块中的 (`add 0 + 2`) 内容。
 
-### HTML comments
+### HTML 注释
 
-You can add html comments by piping a string HTML code comment to `safeHTML`.
+您可以通过将字符串html代码注释管道连接到`safeHTML`来添加html注释。
 
-For example:
+例如:
 
 ```go-html-template
 {{ "<!-- This is an HTML comment -->" | safeHTML }}
 ```
 
-If you need variables to construct such HTML comments, just pipe `printf` to `safeHTML`.
+如果您需要变量来构造这样的HTML注释，可以使用`printf`管道传参给 `safeHTML`.
 
-For example:
+例如:
 
 ```go-html-template
 {{ printf "<!-- Our website is named: %s -->" .Site.Title | safeHTML }}
 ```
 
-#### HTML comments containing Go templates
+#### HTML 注释里包含 Go templates
 
-HTML comments are by default stripped, but their content is still evaluated. That means that although the HTML comment will never render any content to the final HTML pages, code contained within the comment may fail the build process.
+默认情况下，HTML注释会被剥离，但它们的内容仍会被执行。这意味着，尽管HTML注释永远不会向最终的HTML页面呈现任何内容，但注释中包含的代码可能会使构建过程失败。
 
 {{% note %}}
-Do **not** try to comment out Go Template code using HTML comments.
+不要尝试使用HTML注释注释掉Go Template代码。
 {{% /note %}}
 
 ```go-html-template
@@ -519,26 +498,30 @@ Do **not** try to comment out Go Template code using HTML comments.
 {{ $author }}
 ```
 
-The templating engine will strip the content within the HTML comment, but will first evaluate any Go Template code if present within. So the above example will render `Emma Goldman`, as the `$author` variable got evaluated in the HTML comment. But the build would have failed if that code in the HTML comment had an error.
+模板引擎将剥离HTML注释中的内容，但将首先评估和执行Go Template中的任何代码（如果存在）。 因此，上面的示例将呈现`Emma Goldman`，因为`$author`变量是在HTML注释中求值的。但是，如果HTML注释中的代码出现错误，那么构建就会失败。
 
-## Hugo parameters
+## Hugo 定义的参数使用
 
-Hugo provides the option of passing values to your template layer through your [site configuration][config] (i.e. for site-wide values) or through the metadata of each specific piece of content (i.e. the [front matter]). You can define any values of any type and use them however you want in your templates, as long as the values are supported by the [front matter format](/content-management/front-matter#front-matter-formats).
 
-## Use content (`Page`) parameters
+Hugo提供了通过[站点配置][config]（比如针对网站全范围的配置复制）或通过每个特定内容的元数据（即[页面头信息][front matter]）将值传递到模板层的选项。
 
-You can provide variables to be used by templates in individual content's [front matter].
+您可以定义任何类型的任何值，并在模板中使用它们，只要这些值受[页面头信息格式][front matter format](/content-management/front-matter#front-matter-formats)支持即可。
 
-An example of this is used in the Hugo docs. Most of the pages benefit from having the table of contents provided, but sometimes the table of contents doesn't make a lot of sense. We've defined a `notoc` variable in our front matter that will prevent a table of contents from rendering when specifically set to `true`.
+## 使用页面级别 (`Page`) 中的变量内容
 
-Here is the example front matter:
+你可以在每一个独立的内容模板的[头信息][front matter]中定义变量。
+
+Hugo文档中使用了一个例子。大多数页面都受益于提供了目录，但有时目录没有多大意义。我们在页面头信息[front matter]中定义了一个 `notoc` 变量，该变量将阻止目录在其设置为“true”时被渲染。
+
+
+以下是对应的头信息示例:
 
 {{< code-toggle file="content/example.md" fm=true copy=false >}}
 title: Example
 notoc: true
 {{< /code-toggle >}}
 
-Here is an example of corresponding code that could be used inside a `toc.html` [partial template][partials]:
+以下是可以在 `toc.html` [子模板][partials]中使用的相应代码：
 
 {{< code file="layouts/partials/toc.html" >}}
 {{ if not .Params.notoc }}
@@ -554,13 +537,13 @@ Here is an example of corresponding code that could be used inside a `toc.html` 
 {{ end }}
 {{< /code >}}
 
-We want the *default* behavior to be for pages to include a TOC unless otherwise specified. This template checks to make sure that the `notoc:` field in this page's front matter is not `true`.
+我们希望页面渲染时默认会渲染` {{ .TableOfContents }}` 中的内容，除非被指定了不渲染。而这里指定不渲染的方式就是检查当前页面模板渲染时页面头信息中设置的 `notoc:` 的值确定不是 `true`。
 
-## Use site configuration parameters
+## 使用网站全局配置参数
 
-You can arbitrarily define as many site-level parameters as you want in your [site's configuration file][config]. These parameters are globally available in your templates.
+只要你想，你可以定义任意多的 网站级别的参数，在 [网站配置文件中 ite's configuration file][config]. 这些参数将在全局所有模板中生效。
 
-For instance, you might declare the following:
+比如，你可能有如下定义：
 
 {{< code-toggle file="hugo" >}}
 params:
@@ -569,7 +552,9 @@ params:
   sidebarrecentlimit: 5
 {{< /code >}}
 
-Within a footer layout, you might then declare a `<footer>` that is only rendered if the `copyrighthtml` parameter is provided. If it *is* provided, you will then need to declare the string is safe to use via the [`safeHTML` function][safehtml] so that the HTML entity is not escaped again. This would let you easily update just your top-level configuration file each January 1st, instead of hunting through your templates.
+在 footer渲染布局中，你可能定义只有当 `copyrighthtml` 参数已经声明赋值之后，才来渲染你的`<footer>` 布局。
+如果这个参数确实有值，则需要通过[`safeHTML`函数][safeHTML]声明该字符串可以安全使用，这样HTML实体就不会再次转义。
+这将使您能够在每年1月1日轻松更新您的顶级配置文件，而不是在模板中搜寻。
 
 ```go-html-template
 {{ if .Site.Params.copyrighthtml }}
@@ -579,7 +564,7 @@ Within a footer layout, you might then declare a `<footer>` that is only rendere
 {{ end }}
 ```
 
-An alternative way of writing the "`if`" and then referencing the same value is to use [`with`][with] instead. `with` rebinds the context (`.`) within its scope and skips the block if the variable is absent:
+一种替代"`if`" 的方法就是使用 [`with`][with]来判断一个参数的值是否存在。如果有一个参数是全局参数，`with`会重新绑定(`.`)所代表的上下文到它自己的代码块范围内：
 
 {{< code file="layouts/partials/twitter.html" >}}
 {{ with .Site.Params.twitteruser }}
@@ -590,7 +575,9 @@ An alternative way of writing the "`if`" and then referencing the same value is 
 {{ end }}
 {{< /code >}}
 
-Finally, you can pull "magic constants" out of your layouts as well. The following uses the [`first`][first] function, as well as the [`.RelPermalink`][relpermalink] page variable and the [`.Site.Pages`][sitevars] site variable.
+最后，您还可以从布局中提取“魔术常量`magic constants`”。
+下面是使用[`first`][first] 函数，以及[`.RelPermalink`][relpermalink] 来使用页面变量，和[`.Site.Pages`][sitevars] 来访问网站全局变量的方式。
+
 
 ```go-html-template
 <nav>
@@ -603,9 +590,9 @@ Finally, you can pull "magic constants" out of your layouts as well. The followi
 </nav>
 ```
 
-## Example: show future events
+## Example: show future events 未来事件
 
-Given the following content structure and [front matter]:
+定义如下文档结构和内容在 [页面头信息][front matter]中：
 
 ```text
 content/
@@ -623,7 +610,7 @@ start_date = 2021-12-05T09:00:00-08:00
 end_date = 2021-12-05T11:00:00-08:00
 {{< /code-toggle >}}
 
-This [partial template][partials] renders future events:
+这个 [子模板 partial template][partials] 将渲染未来的事件：
 
 {{< code file="layouts/partials/future-events.html" >}}
 <h2>Future Events</h2>
@@ -639,7 +626,7 @@ This [partial template][partials] renders future events:
 </ul>
 {{< /code >}}
 
-If you restrict front matter to the TOML format, and omit quotation marks surrounding date fields, you can perform date comparisons without casting.
+如果将[页面头信息][front matter]限制为TOML格式，并省略日期字段周围的引号，则可以在不强制转换的情况下执行日期比较。
 
 {{< code file="layouts/partials/future-events.html" >}}
 <h2>Future Events</h2>

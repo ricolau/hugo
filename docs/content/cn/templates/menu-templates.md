@@ -1,6 +1,6 @@
 ---
-title: Menu templates
-description: Use menu variables and methods in your templates to render a menu.
+title: 菜单模板
+description: 使用模板中的菜单变量和方法来渲染菜单。
 categories: [templates]
 keywords: [lists,sections,menus]
 menu:
@@ -12,21 +12,21 @@ weight: 140
 aliases: [/templates/menus/]
 ---
 
-## Overview
+## 概览 Overview
 
-After [defining menu entries], use [menu variables and methods] to render a menu.
+在[定义菜单条目][defining menu entries]之后，使用[菜单变量和方法][menu variables and methods] 来渲染一个菜单。
 
-Three factors determine how to render a menu:
+三个因素来决定如何渲染一个菜单：
 
-1. The method used to define the menu entries: [automatic], [in front matter], or [in site configuration]
-1. The menu structure: flat or nested
-1. The method used to [localize the menu entries]: site configuration or translation tables
+1. 定义菜单中条目的方法在 [automatic], [in front matter],或者 [in site configuration]中。
+2. 菜单结构: 平铺或者嵌套
+3. 使用 [localize the menu entries] 来定义: 站点配置或翻译表
 
-The example below handles every combination.
+下面的示例处理每种组合。
 
-## Example
+## 示例 Example
 
-This partial template recursively "walks" a menu structure, rendering a localized, accessible nested list.
+这个部分模板递归地“遍历”一个菜单结构，呈现一个本地化的、可访问的嵌套列表。
 
 {{< code file="layouts/partials/menu.html" >}}
 {{- $page := .page }}
@@ -67,7 +67,7 @@ This partial template recursively "walks" a menu structure, rendering a localize
 {{- end }}
 {{< /code >}}
 
-Call the partial above, passing a menu ID and the current page in context.
+调用上面的子模板，在上下文中传递菜单ID和当前页面。
 
 {{< code file="layouts/_default/single.html" >}}
 {{ partial "menu.html" (dict "menuID" "main" "page" .) }}
@@ -76,9 +76,9 @@ Call the partial above, passing a menu ID and the current page in context.
 
 ## Page references
 
-Regardless of how you [define menu entries], an entry associated with a page has access to page variables and methods.
+无论您如何[定义菜单项][define menu entries]，与页面关联的项都可以访问页面变量和方法。
+这个简单的示例在每个条目的`name`旁边呈现一个名为`version`的页面参数。代码防御性地使用 `with`或 `if` 来处理条目，其中（a）条目指向外部资源，或（b）未定义`version`参数。
 
-This simplistic example renders a page parameter named `version` next to each entry's `name`. Code defensively using `with` or `if` to handle entries where (a) the entry points to an external resource, or (b) the `version` parameter is not defined.
 
 {{< code file="layouts/_default/single.html" >}}
 {{- range site.Menus.main }}

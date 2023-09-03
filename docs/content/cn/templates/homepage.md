@@ -1,6 +1,6 @@
 ---
-title: Homepage template
-description: The homepage of a website is often formatted differently than the other pages. For this reason, Hugo makes it easy for you to define your new site's homepage as a unique template.
+title: 首页模板
+description: 网站主页的格式通常与其他页面不同。出于这个原因，Hugo让你很容易将新网站的主页定义为一个独特的模板。
 categories: [templates]
 keywords: [homepage]
 menu:
@@ -12,27 +12,28 @@ aliases: [/layout/homepage/,/templates/homepage-template/]
 toc: true
 ---
 
-Homepage is a `Page` and therefore has all the [page variables][pagevars] and [site variables][sitevars] available for use.
+主页也是`页面 Page`，因此可以调用和访问所有可供使用的[页面变量page variables][pagevars]和[站点变量site variables][站点变量sitevars]。
 
 {{% note %}}
-The homepage template is the *only* required template for building a site and therefore useful when bootstrapping a new site and template. It is also the only required template if you are developing a single-page website.
+主页模板是构建网站所需的唯一模板，因此在引导新网站和模板时非常有用。如果你正在开发一个单页网站，它也是唯一需要的模板。
 {{% /note %}}
 
 {{< youtube ut1xtRZ1QOA >}}
 
-## Homepage template lookup order
+## 主页模板查找顺序
 
-See [Template Lookup](/templates/lookup-order/).
+查看 [模板查找顺序 Template Lookup](/templates/lookup-order/).
 
-## Add content and front matter to the homepage
+## 给网站首页增加内容和定义头信息
 
-The homepage, similar to other [list pages in Hugo][lists], accepts content and front matter from an `_index.md` file. This file should live at the root of your `content` folder (i.e., `content/_index.md`). You can then add body copy and metadata to your homepage the way you would any other content file.
+网站首页，和其他的 [列表页 list pages in Hugo][lists]一样， 内容和头信息都来自一个  `_index.md`  文件。这个文件需要在你的`content` 目录的根目录之下。(比如 `content/_index.md`)。然后，您可以像添加任何其他内容文件一样，将正文副本和元数据添加到主页中。
 
-See the homepage template below or [Content Organization][contentorg] for more information on the role of `_index.md` in adding content and front matter to list pages.
+请参阅下面的主页模板或[内容组织 Content Organization][contentorg] 来查看更多信息，以及给比如 `_index.md`  和列表页添加内容、头信息的方式。
 
-## Example homepage template
+## 首页模板示例
 
-The following is an example of a homepage template that uses [partial][partials], [base] templates, and a content file at `content/_index.md` to populate the `{{ .Title }}` and `{{ .Content }}` [page variables][pagevars].
+
+下面是一个使用了 [子模板 partial][partials], [基础模板][base] 以及文档内容 `content/_index.md` 定义， 并且引用了 `{{ .Title }}` 和 `{{ .Content }}` [ 页面变量 page variables][pagevars]的示例：
 
 {{< code file="layouts/index.html" >}}
 {{ define "main" }}
